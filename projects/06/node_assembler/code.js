@@ -19,6 +19,7 @@ module.exports = class Code {
 
       case "-1":
         re = "111010";
+        break;
 
       case "D":
         re = "001100";

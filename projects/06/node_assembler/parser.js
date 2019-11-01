@@ -31,15 +31,19 @@ module.exports = class Parser {
   }
 
   symbol() {
-    return this.currentCommand.value.replace("@", "");
+    return this.currentCommand.value;
   }
 
   dest() {
-    return this.currentCommand.value.replace(/=.*/, "");
+    // FIXME
+    if (this.currentCommand.value.includes(";")) {
+      return "";
+    }
+    return this.currentCommand.value.replace(/=.*/g, "");
   }
 
   comp() {
-    return this.currentCommand.value.split("=").pop();
+    return this.currentCommand.value.split(/=/).pop().split(/;/).shift();
   }
 
   jump() {
