@@ -81,9 +81,13 @@ module.exports = class CodeWriter {
    */
   writePushPop(command, segment, index) {
     if (command === "C_PUSH") {
-      if (segment === "constant") {
-        this[_STACK_INDEX]++;
-        this[_RESULT] += `@${index}\nD=A\n@${this[_STACK_INDEX]}\nM=D\n@SP\nM=M+1\n`;
+      this[_STACK_INDEX]++;
+      switch (segment) {
+        case "constant":
+          this[_RESULT] += `@${index}\nD=A\n@${this[_STACK_INDEX]}\nM=D\n@SP\nM=M+1\n`;
+          break;
+        default:
+          break;
       }
     } else if (command === "C_POP") {
       // ステージ2で実装する
