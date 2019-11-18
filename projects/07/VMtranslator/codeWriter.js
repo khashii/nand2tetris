@@ -32,39 +32,137 @@ module.exports = class CodeWriter {
     this[_RESULT] += `// ${command}\n`;
     switch (command) {
       case "add":
-        this[_RESULT] += `@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nM=D+M\n@SP\nM=M+1\n`;
+        this[_RESULT] += `@SP
+                          AM=M-1
+                          D=M
+                          @SP
+                          AM=M-1
+                          M=D+M
+                          @SP
+                          M=M+1
+                         `.replace(/ /g, "");
         break;
 
       case "sub":
-        this[_RESULT] += `@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nM=M-D\n@SP\nM=M+1\n`;
+        this[_RESULT] += `@SP
+                          AM=M-1
+                          D=M
+                          @SP
+                          AM=M-1
+                          M=M-D
+                          @SP
+                          M=M+1
+                         `.replace(/ /g, "");
         break;
 
       case "neg":
-        this[_RESULT] += `@SP\nA=M-1\nM=-M\n`;
+        this[_RESULT] += `@SP
+                          A=M-1
+                          M=-M
+                         `.replace(/ /g, "");
         break;
 
       case "eq":
-        this[_RESULT] += `@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nD=M-D\n@EQ${++this.eqCnt}\nD;JEQ\n@SP\nA=M\nM=0\n@SKIP_EQ${this.eqCnt}\n0;JMP\n(EQ${this.eqCnt})\n@SP\nA=M\nM=-1\n(SKIP_EQ${this.eqCnt})\n@SP\nM=M+1\n`;
+        this[_RESULT] += `@SP
+                          AM=M-1
+                          D=M
+                          @SP
+                          AM=M-1
+                          D=M-D
+                          @EQ${++this.eqCnt}
+                          D;JEQ
+                          @SP
+                          A=M
+                          M=0
+                          @SKIP_EQ${this.eqCnt}
+                          0;JMP
+                          (EQ${this.eqCnt})
+                          @SP
+                          A=M
+                          M=-1
+                          (SKIP_EQ${this.eqCnt})
+                          @SP
+                          M=M+1
+                         `.replace(/ /g, "");
         break;
 
       case "gt":
-        this[_RESULT] += `@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nD=M-D\n@GT${++this.gtCnt}\nD;JGT\n@SP\nA=M\nM=0\n@SKIP_GT${this.gtCnt}\n0;JMP\n(GT${this.gtCnt})\n@SP\nA=M\nM=-1\n(SKIP_GT${this.gtCnt})\n@SP\nM=M+1\n`;
+        this[_RESULT] += `@SP
+                          AM=M-1
+                          D=M
+                          @SP
+                          AM=M-1
+                          D=M-D
+                          @GT${++this.gtCnt}
+                          D;JGT
+                          @SP
+                          A=M
+                          M=0
+                          @SKIP_GT${this.gtCnt}
+                          0;JMP
+                          (GT${this.gtCnt})
+                          @SP
+                          A=M
+                          M=-1
+                          (SKIP_GT${this.gtCnt})
+                          @SP
+                          M=M+1
+                         `.replace(/ /g, "");
         break;
 
       case "lt":
-        this[_RESULT] += `@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nD=M-D\n@LT${++this.ltCnt}\nD;JLT\n@SP\nA=M\nM=0\n@SKIP_LT${this.ltCnt}\n0;JMP\n(LT${this.ltCnt})\n@SP\nA=M\nM=-1\n(SKIP_LT${this.ltCnt})\n@SP\nM=M+1\n`;
+        this[_RESULT] += `@SP
+                          AM=M-1
+                          D=M
+                          @SP
+                          AM=M-1
+                          D=M-D
+                          @LT${++this.ltCnt}
+                          D;JLT
+                          @SP
+                          A=M
+                          M=0
+                          @SKIP_LT${this.ltCnt}
+                          0;JMP
+                          (LT${this.ltCnt})
+                          @SP
+                          A=M
+                          M=-1
+                          (SKIP_LT${this.ltCnt})
+                          @SP
+                          M=M+1
+                         `.replace(/ /g, "");
         break;
 
       case "and":
-        this[_RESULT] += `@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nM=D&M\n@SP\nM=M+1\n`;
+        this[_RESULT] += `@SP
+                          AM=M-1
+                          D=M
+                          @SP
+                          AM=M-1
+                          M=D&M
+                          @SP
+                          M=M+1
+                         `.replace(/ /g, "");
         break;
 
       case "or":
-        this[_RESULT] += `@SP\nAM=M-1\nD=M\n@SP\nAM=M-1\nM=D|M\n@SP\nM=M+1\n`;
+        this[_RESULT] += `@SP
+                          AM=M-1
+                          D=M
+                          @SP
+                          AM=M-1
+                          M=D|M
+                          @SP
+                          M=M+1
+                         `.replace(/ /g, "");
         break;
 
       case "not":
-        this[_RESULT] += `@SP\nA=M-1\nM=!M\n`;
+        this[_RESULT] += `@SP
+                          A=M-1
+                          M=!M
+                         `.replace(/ /g, "");
         break;
 
       default:
@@ -85,28 +183,96 @@ module.exports = class CodeWriter {
     if (command === "C_PUSH") {
       switch (segment) {
         case "constant":
-          this[_RESULT] += `@${index}\nD=A\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         case "local":
-          this[_RESULT] += `@${index}\nD=A\n@LCL\nA=M+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @LCL
+                            A=M+D
+                            D=M
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         case "argument":
-          this[_RESULT] += `@${index}\nD=A\n@ARG\nA=M+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @ARG
+                            A=M+D
+                            D=M
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         case "this":
-          this[_RESULT] += `@${index}\nD=A\n@THIS\nA=M+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @THIS
+                            A=M+D
+                            D=M
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         case "that":
-          this[_RESULT] += `@${index}\nD=A\n@THAT\nA=M+D\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @THAT
+                            A=M+D
+                            D=M
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         case "pointer":
-          this[_RESULT] += `@${3+index}\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${3+index}
+                            D=M
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         case "temp":
-          this[_RESULT] += `@${5+index}\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${5+index}
+                            D=M
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         case "static":
-          this[_RESULT] += `@${this[_FILE_NAME]}.${index}\nD=M\n@SP\nA=M\nM=D\n@SP\nM=M+1\n`;
+          this[_RESULT] += `@${this[_FILE_NAME]}.${index}
+                            D=M
+                            @SP
+                            A=M
+                            M=D
+                            @SP
+                            M=M+1
+                           `.replace(/ /g, "");
           break;
         default:
           break;
@@ -116,25 +282,88 @@ module.exports = class CodeWriter {
         case "constant":
           break;
         case "local":
-          this[_RESULT] += `@${index}\nD=A\n@LCL\nD=M+D\n@R13\nM=D\n@SP\nAM=M-1\nD=M\n@R13\nA=M\nM=D\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @LCL
+                            D=M+D
+                            @R13
+                            M=D
+                            @SP
+                            AM=M-1
+                            D=M
+                            @R13
+                            A=M
+                            M=D
+                           `.replace(/ /g, "");
           break;
         case "argument":
-          this[_RESULT] += `@${index}\nD=A\n@ARG\nD=M+D\n@R13\nM=D\n@SP\nAM=M-1\nD=M\n@R13\nA=M\nM=D\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @ARG
+                            D=M+D
+                            @R13
+                            M=D
+                            @SP
+                            AM=M-1
+                            D=M
+                            @R13
+                            A=M
+                            M=D
+                           `.replace(/ /g, "");
           break;
         case "this":
-          this[_RESULT] += `@${index}\nD=A\n@THIS\nD=M+D\n@R13\nM=D\n@SP\nAM=M-1\nD=M\n@R13\nA=M\nM=D\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @THIS
+                            D=M+D
+                            @R13
+                            M=D
+                            @SP
+                            AM=M-1
+                            D=M
+                            @R13
+                            A=M
+                            M=D
+                           `.replace(/ /g, "");
           break;
         case "that":
-          this[_RESULT] += `@${index}\nD=A\n@THAT\nD=M+D\n@R13\nM=D\n@SP\nAM=M-1\nD=M\n@R13\nA=M\nM=D\n`;
+          this[_RESULT] += `@${index}
+                            D=A
+                            @THAT
+                            D=M+D
+                            @R13
+                            M=D
+                            @SP
+                            AM=M-1
+                            D=M
+                            @R13
+                            A=M
+                            M=D
+                           `.replace(/ /g, "");
           break;
         case "pointer":
-          this[_RESULT] += `@SP\nAM=M-1\nD=M\n@${3+index}\nM=D\n`;
+          this[_RESULT] += `@SP
+                            AM=M-1
+                            D=M
+                            @${3+index}
+                            M=D
+                           `.replace(/ /g, "");
           break;
         case "temp":
-          this[_RESULT] += `@SP\nAM=M-1\nD=M\n@${5+index}\nM=D\n`;
+          this[_RESULT] += `@SP
+                            AM=M-1
+                            D=M
+                            @${5+index}
+                            M=D
+                           `.replace(/ /g, "");
           break;
         case "static":
-          this[_RESULT] += `@SP\nAM=M-1\nD=M\n@${this[_FILE_NAME]}.${index}\nM=D\n`;
+          this[_RESULT] += `@SP
+                            AM=M-1
+                            D=M
+                            @${this[_FILE_NAME]}.${index}
+                            M=D
+                           `.replace(/ /g, "");
           break;
         default:
           break;
