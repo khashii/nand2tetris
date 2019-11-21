@@ -11,10 +11,12 @@ const stat = fs.statSync(path);
 if (stat.isFile()) {
   translateVMToASM(path);
 } else if (stat.isDirectory()) {
+  codeWriter.writeInit();
   fs.readdirSync(path).filter(filename => filename.match(/.vm$/)).forEach(vmFilepath => {
-    translateVMToASM(`${path}${path.match(/\/$"/) ? "" : "/"}${vmFilepath}`);
+    translateVMToASM(`${path}${path.match(/\/$/) ? "" : "/"}${vmFilepath}`);
   });
 }
+codeWriter.close();
 
 function translateVMToASM(path) {
   const parser = new Parser(path);
@@ -32,21 +34,27 @@ function translateVMToASM(path) {
         break;
 
       case "C_LABEL":
+        codeWriter.writeLabel(parser.arg1());
         break;
 
       case "C_GOTO":
+        codeWriter.writeGoto(parser.arg1());
         break;
 
       case "C_IF":
+        codeWriter.writeIf(parser.arg1());
         break;
 
       case "C_FUNCTION":
+        codeWriter.writeFunction(parser.arg1(), parser.arg2());
         break;
 
       case "C_RETURN":
+        codeWriter.writeReturn();
         break;
 
       case "C_CALL":
+        codeWriter.writeCall(parser.arg1(), parser.arg2());
         break;
 
       default:
@@ -56,5 +64,4 @@ function translateVMToASM(path) {
     parser.advance();
   }
 
-  codeWriter.close();
 }
