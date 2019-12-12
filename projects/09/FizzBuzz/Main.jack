@@ -1,0 +1,39 @@
+class Main {
+    function void main() {
+        var boolean isFizz;
+        var boolean isBuzz;
+        var int n;
+        let n = 0;
+        let isFizz = false;
+        let isBuzz = false;
+        while (n < 100) {
+            if (Main.mod(n, 3) = 0) {
+                do Output.printString("Fizz");
+                let isFizz = true;
+            }
+            if (Main.mod(n, 5) = 0) {
+                do Output.printString("Buzz");
+                let isBuzz = true;
+            }
+            if (~(isFizz | isBuzz)) {
+                do Output.printInt(n);
+            }
+            let isFizz = false;
+            let isBuzz = false;
+            do Output.println();
+            let n = n + 1;
+            do Keyboard.readChar();
+            // スクリーンは23行
+            if (Main.mod(n, 12) = 0) {
+                do Screen.clearScreen();
+            }
+        }
+        return;
+    }
+
+    // nをmで割ったあまりを返す
+    // mod(100, 3) -> 1
+    function boolean mod(int n, int m) {
+        return n - Math.multiply(m, Math.divide(n, m));
+    }
+}
