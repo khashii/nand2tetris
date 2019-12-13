@@ -33,7 +33,7 @@ class Main {
 
     // nをmで割ったあまりを返す
     // mod(100, 3) -> 1
-    function boolean mod(int n, int m) {
+    function int mod(int n, int m) {
         return n - Math.multiply(m, Math.divide(n, m));
     }
 }
