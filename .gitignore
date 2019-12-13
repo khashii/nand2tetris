@@ -1,3 +1,4 @@
 *.out
 *.hack
 /tools
+**/08/**/*.asm
