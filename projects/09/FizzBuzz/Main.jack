@@ -4,9 +4,9 @@ class Main {
         var boolean isBuzz;
         var int n;
         let n = 0;
-        let isFizz = false;
-        let isBuzz = false;
         while (n < 100) {
+            let isFizz = false;
+            let isBuzz = false;
             if (Main.mod(n, 3) = 0) {
                 do Output.printString("Fizz");
                 let isFizz = true;
@@ -18,8 +18,6 @@ class Main {
             if (~(isFizz | isBuzz)) {
                 do Output.printInt(n);
             }
-            let isFizz = false;
-            let isBuzz = false;
             do Output.println();
             let n = n + 1;
             do Keyboard.readChar();

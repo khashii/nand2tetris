@@ -1,16 +1,16 @@
 function Main.main 3
 push constant 0
 pop local 2
-push constant 0
-pop local 0
-push constant 0
-pop local 1
 label WHILE_EXP0
 push local 2
 push constant 100
 lt
 not
 if-goto WHILE_END0
+push constant 0
+pop local 0
+push constant 0
+pop local 1
 push local 2
 push constant 3
 call Main.mod 2
@@ -70,10 +70,6 @@ push local 2
 call Output.printInt 1
 pop temp 0
 label IF_FALSE2
-push constant 0
-pop local 0
-push constant 0
-pop local 1
 call Output.println 0
 pop temp 0
 push local 2
