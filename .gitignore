@@ -2,3 +2,4 @@
 *.hack
 /tools
 **/08/**/*.asm
+*.dat
