@@ -1,0 +1,73 @@
+class Main {
+   function void main() {
+      var Array arr;
+      var int i;
+      var int j;
+      var String input;
+      var int n;
+      var int m;
+      var String str;
+      var boolean isSameStr;
+      var int tryCnt;
+      let arr = Main.initializeArr();
+      let i = 0;
+      let tryCnt = 0;
+      while (true) {
+         let tryCnt = tryCnt + 1;
+         let str = arr[i];
+         do Output.printString(str);
+         do Output.println();
+         // タイプの読み込みがかなり遅い、大文字での入力になる
+         let input = Keyboard.readLine("");
+         do Output.println();
+
+         let n = input.length();
+         let m = str.length();
+         if (n = m) {
+            let j = 0;
+            let isSameStr = true;
+            while (j < n) {
+               let isSameStr = isSameStr & (input.charAt(j) = str.charAt(j));
+               let j = j + 1;
+            }
+            if (isSameStr) {
+               let i = i + 1;
+            }
+         }
+         if (i = 10) {
+            return;
+         }
+         if (Main.mod(tryCnt, 8) = 0) {
+            do Screen.clearScreen();
+         }
+      }
+      return;
+   }
+
+   function Array initializeArr() {
+      var Array arr;
+      var int arrLen;
+      // 適当
+      let arrLen = 10;
+      let arr = Array.new(arrLen);
+      // いい方法が思いつかない
+      let arr[0] = "JACK";
+      let arr[1] = "JAVA";
+      let arr[2] = "JAVASCRIPT";
+      let arr[3] = "PHP";
+      let arr[4] = "C++";
+      let arr[5] = "C";
+      let arr[6] = "PYTHON";
+      let arr[7] = "OBJECTIVE C";
+      let arr[8] = "FORTRAN";
+      let arr[9] = "KOTLIN";
+      return arr;
+   }
+
+    // nをmで割ったあまりを返す
+    // mod(100, 3) -> 1
+    function int mod(int n, int m) {
+        return n - Math.multiply(m, Math.divide(n, m));
+    }
+
+}
