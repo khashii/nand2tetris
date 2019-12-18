@@ -8,9 +8,12 @@ class Main {
       var int m;
       var String str;
       var boolean isSameStr;
+      var int tryCnt;
       let arr = Main.initializeArr();
       let i = 0;
+      let tryCnt = 0;
       while (true) {
+         let tryCnt = tryCnt + 1;
          let str = arr[i];
          do Output.printString(str);
          do Output.println();
@@ -34,6 +37,9 @@ class Main {
          if (i = 10) {
             return;
          }
+         if (Main.mod(tryCnt, 8) = 0) {
+            do Screen.clearScreen();
+         }
       }
       return;
    }
@@ -53,8 +59,15 @@ class Main {
       let arr[5] = "C";
       let arr[6] = "PYTHON";
       let arr[7] = "OBJECTIVE C";
-      let arr[8] = "PYTHON";
+      let arr[8] = "FORTRAN";
       let arr[9] = "KOTLIN";
       return arr;
    }
+
+    // nをmで割ったあまりを返す
+    // mod(100, 3) -> 1
+    function int mod(int n, int m) {
+        return n - Math.multiply(m, Math.divide(n, m));
+    }
+
 }

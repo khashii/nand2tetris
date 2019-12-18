@@ -1,13 +1,19 @@
-function Main.main 8
+function Main.main 9
 call Main.initializeArr 0
 pop local 0
 push constant 0
 pop local 1
+push constant 0
+pop local 8
 label WHILE_EXP0
 push constant 0
 not
 not
 if-goto WHILE_END0
+push local 8
+push constant 1
+add
+pop local 8
 push local 1
 push local 0
 add
@@ -83,6 +89,17 @@ label IF_TRUE2
 push constant 0
 return
 label IF_FALSE2
+push local 8
+push constant 8
+call Main.mod 2
+push constant 0
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+call Screen.clearScreen 0
+pop temp 0
+label IF_FALSE3
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0
@@ -252,17 +269,19 @@ pop that 0
 push constant 8
 push local 0
 add
-push constant 6
+push constant 7
 call String.new 1
-push constant 80
+push constant 70
 call String.appendChar 2
-push constant 89
+push constant 79
+call String.appendChar 2
+push constant 82
 call String.appendChar 2
 push constant 84
 call String.appendChar 2
-push constant 72
+push constant 82
 call String.appendChar 2
-push constant 79
+push constant 65
 call String.appendChar 2
 push constant 78
 call String.appendChar 2
@@ -292,4 +311,13 @@ pop pointer 1
 push temp 0
 pop that 0
 push local 0
+return
+function Main.mod 0
+push argument 0
+push argument 1
+push argument 0
+push argument 1
+call Math.divide 2
+call Math.multiply 2
+sub
 return
