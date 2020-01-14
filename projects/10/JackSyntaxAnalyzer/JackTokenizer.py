@@ -2,6 +2,11 @@ import io
 import re
 
 
+SYMBOLS = ["{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*",
+           "/", "&", "|", "<", ">", "=", "~"]
+MAX_INT = 32767
+
+
 class JackTokenizer():
     """
         入力ストリームからすべてのコメントと空白文字を取り除き、
@@ -40,14 +45,13 @@ class JackTokenizer():
                     "static", "var", "int", "char", "boolean", "void", "true",
                     "false", "null", "this", "let", "do", "if", "else",
                     "while", "return"]
-        symbols = ["{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*",
-                   "/", "&", "|", "<", ">", "=", "~"]
+        symbols = SYMBOLS
         if self.token in keywords:
             return "KEYWORD"
         elif self.token in symbols:
             return "SYMBOL"
         elif self.token.isnumeric() and \
-                0 <= int(self.token) and int(self.token) <= 32767:
+                0 <= int(self.token) and int(self.token) <= MAX_INT:
             return "INT_CONST"
         elif re.match(r"^\".*\"$", self.token) and \
                 "\n" not in self.token:
@@ -109,8 +113,7 @@ class JackTokenizer():
 
     def tokenize(self) -> None:
         file = self.file
-        symbols = ["{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*",
-                   "/", "&", "|", "<", ">", "=", "~"]
+        symbols = SYMBOLS
         tmp_str = ""
         i = 0
         while i < len(file):
