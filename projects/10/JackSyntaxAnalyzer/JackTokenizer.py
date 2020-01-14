@@ -13,10 +13,6 @@ class JackTokenizer():
             入力ファイル/ストリームを開き、トークン化を行う準備をする
         """
         self.filename = re.sub(r".jack$", "", file.name)
-        # self.tokens = re.sub(r"(//.*?(?=\n))|(/\*.*?\*/)",
-        #                      "",
-        #                      file.read(),
-        #                      flags=(re.MULTILINE | re.DOTALL)).split()
         self.file = file.read()
         self.tokens = []
         self.token = None
