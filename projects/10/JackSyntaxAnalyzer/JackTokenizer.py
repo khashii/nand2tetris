@@ -2,6 +2,11 @@ import io
 import re
 
 
+SYMBOLS = ["{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*",
+           "/", "&", "|", "<", ">", "=", "~"]
+MAX_INT = 32767
+
+
 class JackTokenizer():
     """
         入力ストリームからすべてのコメントと空白文字を取り除き、
@@ -15,7 +20,8 @@ class JackTokenizer():
         self.filename = re.sub(r".jack$", "", file.name)
         self.file = file.read()
         self.tokens = []
-        self.token = None
+        self.token: str = None
+        self.tokenize()
 
     def hasMoreTokens(self) -> bool:
         """
@@ -31,8 +37,17 @@ class JackTokenizer():
         """
         self.token = self.tokens.pop(0)
 
-    def tokenType(self) -> "KEYWORD" or "SYMBOL" or "IDENTIFIER" \
-                           or "INT_CONST" or "STRING_CONST":
+    def go_back(self) -> None:
+        self.tokens.insert(0, self.token)
+
+    def look_ahead(self) -> str:
+        """
+        先読みをする
+        """
+        return self.tokens[0]
+
+    def tokenType(self) -> "keyword" or "symbol" or "identifier" \
+                           or "integerrConstant" or "stringConstant":
         """
             現トークンの種類を返す
         """
@@ -40,77 +55,95 @@ class JackTokenizer():
                     "static", "var", "int", "char", "boolean", "void", "true",
                     "false", "null", "this", "let", "do", "if", "else",
                     "while", "return"]
-        symbols = ["{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*",
-                   "/", "&", "|", "<", ">", "=", "~"]
+        symbols = SYMBOLS
         if self.token in keywords:
-            return "KEYWORD"
+            return "keyword"
         elif self.token in symbols:
-            return "SYMBOL"
+            return "symbol"
         elif self.token.isnumeric() and \
-                0 <= int(self.token) and int(self.token) <= 32767:
-            return "INT_CONST"
+                0 <= int(self.token) and int(self.token) <= MAX_INT:
+            return "integerConstant"
         elif re.match(r"^\".*\"$", self.token) and \
                 "\n" not in self.token:
-            return "STRING_CONST"
+            return "stringConstant"
         elif not self.token[0].isnumeric() and \
             all(list(map(
                         lambda t: t.isalpha() or t.isnumeric() or t == "_",
                         self.token
                         ))):
-            return "IDENTIFIER"
+            return "identifier"
         else:
             print(f"トークンの種類が分かりませんでした: {self.token}")
 
-    def keyWord(self) -> "CLASS" or "METHOD" or "FUNCTION" or "CONSTRUCTOR" \
-                         or "INT" or "BOOLEAN" or "CHAR" or "VOID" or "VAR" \
-                         or "STATIC" or "FIELD" or "LET" or "DO" or "IF" \
-                         or "ELSE" or "WHILE" or "RETURN" or "TRUE" \
-                         or "FALSE" or "NULL" or "THIS":
+    def keyWord(self) -> "class" or "method" or "function" or "constructor" \
+                         or "int" or "boolean" or "char" or "void" or "var" \
+                         or "static" or "field" or "let" or "do" or "if" \
+                         or "else" or "while" or "return" or "true" \
+                         or "false" or "null" or "this":
         """
             現トークンのキーワードを返す。
-            このルーチンは、tokenType()がKEYWORDの場合のみ呼び出すことができる。
+            このルーチンは、tokenType()がkeywordの場合のみ呼び出すことができる。
         """
-        return self.token.upper()
+        return self.token
 
     def symbol(self) -> str:
         """
             現トークンの文字を返す。
-            このルーチンは、tokenType()がSYMBOLの場合のみ呼び出すことができる。
+            このルーチンは、tokenType()がsymbolの場合のみ呼び出すことができる。
         """
-        if self.token == "<":
+        return self.do_escape(self.token)
+
+    def do_escape(self, s: str) -> str:
+        if s == "<":
             return "&lt;"
-        elif self.token == ">":
+        elif s == ">":
             return "&gt;"
-        elif self.token == "&":
+        elif s == "&":
             return "&amp;"
         else:
-            return self.token
+            return s
 
     def identifier(self) -> str:
         """
             現トークンの識別子(identifier)を返す。
-            このルーチンは、tokenType()がIDENTIFERの場合のみ呼び出すことができる。
+            このルーチンは、tokenType()がidentifierの場合のみ呼び出すことができる。
         """
         return self.token
 
     def intVal(self) -> int:
         """
             現トークンの整数の値を返す。
-            このルーチンは、tokenType()がINT_CONSTの場合のみ呼び出すことができる。
+            このルーチンは、tokenType()がintegerConstantの場合のみ呼び出すことができる。
         """
         return int(self.token)
 
     def stringVal(self) -> str:
         """
             現トークンの文字列を返す。
-            このルーチンは、tokenType()がSTRING_CONSTの場合のみ呼び出すことができる。
+            このルーチンは、tokenType()がstringConstantの場合のみ呼び出すことができる。
         """
         return re.sub("\"", "", self.token)
 
+    def cov2_xml_elm(self) -> str:
+        token_type = self.tokenType()
+        elm = ""
+        if token_type == "keyword":
+            elm = self.keyWord()
+        elif token_type == "symbol":
+            elm = self.symbol()
+        elif token_type == "identifier":
+            elm = self.identifier()
+        elif token_type == "integerConstant":
+            elm = self.intVal()
+        elif token_type == "stringConstant":
+            elm = self.stringVal()
+        else:
+            print(f"トークンのタイプが不明: {self.token}")
+        return f"<{token_type}> {elm} </{token_type}>"
+
     def tokenize(self) -> None:
         file = self.file
-        symbols = ["{", "}", "(", ")", "[", "]", ".", ",", ";", "+", "-", "*",
-                   "/", "&", "|", "<", ">", "=", "~"]
+        symbols = SYMBOLS
         tmp_str = ""
         i = 0
         while i < len(file):
@@ -149,25 +182,3 @@ class JackTokenizer():
                 tmp_str = ""
                 i -= 1
             i += 1
-
-        arr = ["<tokens>"]
-        while self.hasMoreTokens():
-            self.advance()
-            token_type = self.tokenType()
-            if token_type == "KEYWORD":
-                arr.append(f"<keyword> {self.keyWord().lower()} </keyword>")
-            elif token_type == "SYMBOL":
-                arr.append(f"<symbol> {self.symbol()} </symbol>")
-            elif token_type == "IDENTIFIER":
-                arr.append(f"<identifier> {self.identifier()} </identifier>")
-            elif token_type == "INT_CONST":
-                arr.append(
-                    f"<integerConstant> {self.intVal()} </integerConstant>"
-                )
-            elif token_type == "STRING_CONST":
-                arr.append(
-                    f"<stringConstant> {self.stringVal()} </stringConstant>"
-                )
-        arr.append("</tokens>")
-        with open(f"./{self.filename}T.xml", "w") as output:
-            output.write("\n".join(arr))
