@@ -23,8 +23,9 @@ class CompilationEngine():
         """
         クラスをコンパイルする
         """
-        tokenizer, result = self.tokenizer, self.result
-        result.append("<class>")
+        tokenizer: JackTokenizer = self.tokenizer
+        tokenizer.tokenize()
+        self.result.append("<class>")
         # 'class'
         self.append_elm()
         # className
@@ -39,7 +40,10 @@ class CompilationEngine():
             self.compileSubroutine()
         # '}'
         self.append_elm()
-        result.append("</class>")
+        self.result.append("</class>")
+
+        with open(f"./{self.output}.xml", "w") as output:
+            output.write("\n".join(self.result))
 
     def create_xml_elm(self) -> str:
         """
@@ -332,9 +336,6 @@ class CompilationEngine():
             self.result.append(self.create_xml_elm())
         self.result.append("</term>")
 
-    def compile(self) -> None:
-        self.compileClass()
-
     def compileExpressionList(self) -> None:
         """
         コンマで分離された式のリスト(空の可能性もある)をコンパイルする
@@ -345,15 +346,3 @@ class CompilationEngine():
                 self.append_elm()
             self.compileExpression()
         self.result.append("</expressionList>")
-
-    def parse(self) -> None:
-        """
-        XMLを出力する
-        """
-        tokenizer: JackTokenizer = self.tokenizer
-        tokenizer.tokenize()
-
-        self.compile()
-
-        with open(f"./{self.output}.xml", "w") as output:
-            output.write("\n".join(self.result))
