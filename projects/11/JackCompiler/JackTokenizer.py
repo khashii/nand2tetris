@@ -124,7 +124,10 @@ class JackTokenizer():
         """
         return re.sub("\"", "", self.token)
 
-    def cov2_xml_elm(self) -> str:
+    def conv2_xml_elm(
+        self, category: str = "", is_defining: bool = False,
+        running_index: (int or None) = None,
+    ) -> str:
         token_type = self.tokenType()
         elm = ""
         if token_type == "keyword":
@@ -132,7 +135,8 @@ class JackTokenizer():
         elif token_type == "symbol":
             elm = self.symbol()
         elif token_type == "identifier":
-            elm = self.identifier()
+            elm = f"{self.identifier()} {category} " + \
+                  f"{'defined' if is_defining else 'used'} {running_index}"
         elif token_type == "integerConstant":
             elm = self.intVal()
         elif token_type == "stringConstant":

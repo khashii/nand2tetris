@@ -1,5 +1,6 @@
 import io
 from JackTokenizer import JackTokenizer
+from SymbolTable import SymbolTable
 import re
 
 
@@ -15,6 +16,7 @@ class CompilationEngine():
         次に呼ぶルーチンはcompileClass()でなければならない
         """
         self.tokenizer: JackTokenizer = JackTokenizer(file)
+        self.symbol_table = SymbolTable()
         self.result: list = []
         self.output: str = re.sub(r".jack$", "", file.name)
         self.statement_terms = ("let", "if", "while", "do", "return")
@@ -29,7 +31,8 @@ class CompilationEngine():
         # 'class'
         self.append_elm()
         # className
-        self.append_elm()
+        self.append_elm("class", True, "")
+        self.class_name = tokenizer.token
         # '{'
         self.append_elm()
         # classVarDec*
@@ -45,55 +48,125 @@ class CompilationEngine():
         with open(f"./{self.output}.xml", "w") as output:
             output.write("\n".join(self.result))
 
-    def create_xml_elm(self) -> str:
+    def create_xml_elm(
+        self, category: ("var" or "argument" or "static" or "field" or "class"
+                         or "subroutine") = "", is_defining: bool = False,
+        kind: ("var" or "argument" or "static" or "field" or None) = None
+    ) -> str:
         """
         現トークンを
         <tag> elm </tag>にして返す
         """
-        return f"{self.tokenizer.cov2_xml_elm()}"
+        if kind in ("var", "argument", "static", "field"):
+            args = (self.get_category(category),
+                    is_defining,
+                    self.get_running_index())
+        else:
+            args = (category, is_defining, None)
+        return self.tokenizer.conv2_xml_elm(*args)
 
-    def append_elm(self) -> None:
+    def get_running_index(self) -> int:
+        return self.symbol_table.indexOf(self.tokenizer.token)
+
+    def get_category(self, category: str) -> str:
+        if category == "":
+            return self.symbol_table.kindOf(self.tokenizer.token)
+        else:
+            return category
+
+    def append_elm(
+        self, category: ("var" or "argument" or "static" or "field" or "class"
+                         or "subroutine") = "", is_defining: bool = False,
+        kind: ("var" or "argument" or "static" or "field" or None) = None
+    ) -> None:
         self.tokenizer.advance()
-        self.result.append(self.create_xml_elm())
+        if self.tokenizer.tokenType() == "identifier":
+            self.result.append(
+                self.create_xml_elm(category, is_defining, kind)
+            )
+        else:
+            self.result.append(self.create_xml_elm())
 
     def compileClassVarDec(self) -> None:
         """
         スタティック宣言またはフィールド宣言をコンパイルする
         """
-        if self.tokenizer.look_ahead() in ("static", "field"):
+        # varType
+        category = self.tokenizer.look_ahead()
+        if category in ("static", "field"):
             self.result.append("<classVarDec>")
-            # varType
             self.append_elm()
             # type
-            self.append_elm()
+            type = self.tokenizer.look_ahead()
+            if type[0].isupper():
+                # クラス名
+                self.append_elm(
+                    category="class",
+                )
+            else:
+                self.append_elm()
             # varList
             # 雑 HACK
-            self.compileVarList()
+            self.compileVarList(
+                category=category, kind=category, type=type,
+            )
             # ;
             self.append_elm()
             self.result.append("</classVarDec>")
 
-    def compileVarList(self):
+    def compileVarList(
+        self,
+        kind: ("static" or "field" or "argument" or "var"),
+        type: str,
+        category: ("var" or "argument" or "static" or "field" or "class"
+                   or "subroutine") = "",
+    ) -> None:
         # 雑 HACK
-        self.append_elm()
+        self.symbol_table.define(
+            name=self.tokenizer.look_ahead(),
+            type=type,
+            kind=kind,
+        )
+        self.append_elm(
+            category=category,
+            is_defining=True,
+            kind=kind,
+        )
         while self.tokenizer.look_ahead() != ";":
-            self.append_elm()
+            if self.tokenizer.look_ahead() == ",":
+                self.append_elm()
+            else:
+                self.symbol_table.define(
+                    name=self.tokenizer.look_ahead(),
+                    type=type,
+                    kind=kind,
+                )
+                self.append_elm(
+                    category=category,
+                    is_defining=True,
+                    kind=kind,
+                )
 
     def compileSubroutine(self) -> None:
         """
         メソッド、ファンクション、コンストラクタをコンパイルする
         """
+        self.symbol_table.startSubroutine()
+
         self.result.append("<subroutineDec>")
-        # subroutineKind
+        # subroutineKind ("constructor", "function", "method")
         self.append_elm()
-        # returnType
-        self.append_elm()
-        # subroutineName
-        self.append_elm()
+        subroutine_kind = self.tokenizer.token
+        # returnType ("void", ...)
+        self.append_elm(category=(
+            "class" if self.tokenizer.look_ahead()[0].isupper() else ""
+        ))
+        # subroutineName ("main", ...)
+        self.append_elm("subroutine", True, "")
         # '('
         self.append_elm()
         # parameterList
-        self.compileParameterList()
+        self.compileParameterList(subroutine_kind)
         # ')'
         self.append_elm()
         # subroutineBody
@@ -113,14 +186,32 @@ class CompilationEngine():
         self.append_elm()
         self.result.append("</subroutineBody>")
 
-    def compileParameterList(self) -> None:
+    def compileParameterList(self, subroutine_kind: str) -> None:
         """
         パラメータのリスト(空の可能性もある)をコンパイルする。
         カッコ"()"は含まない
         """
         self.result.append("<parameterList>")
+        if subroutine_kind == "method":
+            self.symbol_table.define(
+                name="this", type=self.class_name, kind="argument",
+            )
         while self.tokenizer.look_ahead() != ")":
+            # type
+            type = self.tokenizer.look_ahead()
             self.append_elm()
+            # arg_name
+            self.symbol_table.define(
+                name=self.tokenizer.look_ahead(), type=type, kind="argument"
+            )
+            self.append_elm(
+                category="argument",
+                is_defining=True,
+                kind="argument",
+            )
+            # ,?
+            if self.tokenizer.look_ahead() == ",":
+                self.append_elm()
         self.result.append("</parameterList>")
 
     def compileVarDec(self) -> None:
@@ -131,9 +222,13 @@ class CompilationEngine():
         # 'var'
         self.append_elm()
         # type
-        self.append_elm()
+        if self.tokenizer.look_ahead()[0].isupper():
+            self.append_elm("class", False, "")
+        else:
+            self.append_elm()
+        type = self.tokenizer.token
         # varList
-        self.compileVarList()
+        self.compileVarList(category="var", kind="var", type=type)
         # ';'
         self.append_elm()
         self.result.append("</varDec>")
@@ -174,10 +269,21 @@ class CompilationEngine():
         # qualifier
         # '.'
         # subroutineName
-        self.append_elm()
+        self.tokenizer.advance()
         if self.tokenizer.look_ahead() == ".":
+            self.result.append(self.create_xml_elm(
+                category="class",
+                is_defining=False,
+                kind=None,
+            ))
             self.append_elm()
-            self.append_elm()
+            self.append_elm(category="subroutine", is_defining=False)
+        else:
+            self.result.append(self.create_xml_elm(
+                category="subroutine",
+                is_defining=False,
+                kind=None,
+            ))
         # '('
         self.append_elm()
         # expressionList
@@ -193,8 +299,12 @@ class CompilationEngine():
         # 'let'
         self.append_elm()
         # varName
-        self.append_elm()
-        # arrayIndeing?
+        self.append_elm(
+            category=self.symbol_table.kindOf(self.tokenizer.look_ahead()),
+            is_defining=False,
+            kind=self.symbol_table.kindOf(self.tokenizer.look_ahead()),
+        )
+        # arrayIndexing?
         if self.tokenizer.look_ahead() == "[":
             self.compileArrayIndexing()
         # '='
@@ -310,7 +420,11 @@ class CompilationEngine():
         if self.tokenizer.tokenType() == "identifier":
             if self.tokenizer.look_ahead() == "[":
                 # varName
-                self.result.append(self.create_xml_elm())
+                self.result.append(self.create_xml_elm(
+                    category=self.symbol_table.kindOf(self.tokenizer.token),
+                    is_defining=False,
+                    kind=self.symbol_table.kindOf(self.tokenizer.token)
+                ))
                 # '['
                 self.append_elm()
                 # expression
@@ -321,7 +435,11 @@ class CompilationEngine():
                 self.tokenizer.go_back()
                 self.compileSubroutineCall()
             else:
-                self.result.append(self.create_xml_elm())
+                self.result.append(self.create_xml_elm(
+                    category=self.symbol_table.kindOf(self.tokenizer.token),
+                    is_defining=False,
+                    kind=self.symbol_table.kindOf(self.tokenizer.token),
+                ))
         elif self.tokenizer.token in ("-", "~"):
             self.result.append(self.create_xml_elm())
             self.compileTerm()
