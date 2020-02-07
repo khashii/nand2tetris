@@ -1,0 +1,205 @@
+<class>
+<keyword> class </keyword>
+<identifier> Main class defined None </identifier>
+<symbol> { </symbol>
+<classVarDec>
+<keyword> static </keyword>
+<keyword> boolean </keyword>
+<identifier> test static defined 0 </identifier>
+<symbol> ; </symbol>
+</classVarDec>
+<subroutineDec>
+<keyword> function </keyword>
+<keyword> void </keyword>
+<identifier> main subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<varDec>
+<keyword> var </keyword>
+<identifier> SquareGame class used None </identifier>
+<identifier> game var defined 0 </identifier>
+<symbol> ; </symbol>
+</varDec>
+<statements>
+<letStatement>
+<keyword> let </keyword>
+<identifier> game var used 0 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> game var used 0 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> game class used None </identifier>
+<symbol> . </symbol>
+<identifier> run subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> game class used None </identifier>
+<symbol> . </symbol>
+<identifier> dispose subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> function </keyword>
+<keyword> void </keyword>
+<identifier> test subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<varDec>
+<keyword> var </keyword>
+<keyword> int </keyword>
+<identifier> i var defined 0 </identifier>
+<symbol> , </symbol>
+<identifier> j var defined 1 </identifier>
+<symbol> ; </symbol>
+</varDec>
+<varDec>
+<keyword> var </keyword>
+<identifier> String class used None </identifier>
+<identifier> s var defined 2 </identifier>
+<symbol> ; </symbol>
+</varDec>
+<varDec>
+<keyword> var </keyword>
+<identifier> Array class used None </identifier>
+<identifier> a var defined 3 </identifier>
+<symbol> ; </symbol>
+</varDec>
+<statements>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<expression>
+<term>
+<identifier> i var used 0 </identifier>
+</term>
+</expression>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<letStatement>
+<keyword> let </keyword>
+<identifier> s var used 2 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> i var used 0 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> s var used 2 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> j var used 1 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> a var used 3 </identifier>
+<symbol> [ </symbol>
+<expression>
+<term>
+<identifier> i var used 0 </identifier>
+</term>
+</expression>
+<symbol> ] </symbol>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> j var used 1 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+</statements>
+<symbol> } </symbol>
+<keyword> else </keyword>
+<symbol> { </symbol>
+<statements>
+<letStatement>
+<keyword> let </keyword>
+<identifier> i var used 0 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> i var used 0 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> j var used 1 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> j var used 1 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> i var used 0 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> i var used 0 </identifier>
+</term>
+<symbol> | </symbol>
+<term>
+<identifier> j var used 1 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<symbol> } </symbol>
+</class>

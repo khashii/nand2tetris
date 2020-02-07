@@ -1,0 +1,967 @@
+<class>
+<keyword> class </keyword>
+<identifier> Square class defined None </identifier>
+<symbol> { </symbol>
+<classVarDec>
+<keyword> field </keyword>
+<keyword> int </keyword>
+<identifier> x field defined 0 </identifier>
+<symbol> , </symbol>
+<identifier> y field defined 1 </identifier>
+<symbol> ; </symbol>
+</classVarDec>
+<classVarDec>
+<keyword> field </keyword>
+<keyword> int </keyword>
+<identifier> size field defined 2 </identifier>
+<symbol> ; </symbol>
+</classVarDec>
+<subroutineDec>
+<keyword> constructor </keyword>
+<identifier> Square class used None </identifier>
+<identifier> new subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+<keyword> int </keyword>
+<identifier> Ax argument defined 0 </identifier>
+<symbol> , </symbol>
+<keyword> int </keyword>
+<identifier> Ay argument defined 1 </identifier>
+<symbol> , </symbol>
+<keyword> int </keyword>
+<identifier> Asize argument defined 2 </identifier>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<letStatement>
+<keyword> let </keyword>
+<identifier> x field used 0 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> Ax argument used 0 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> y field used 1 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> Ay argument used 1 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> size field used 2 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> Asize argument used 2 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> draw subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<returnStatement>
+<keyword> return </keyword>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> dispose subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Memory class used None </identifier>
+<symbol> . </symbol>
+<identifier> deAlloc subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<keyword> this </keyword>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> draw subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> erase subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> incSize subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> erase subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> size field used 2 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> size field used 2 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> draw subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> decSize subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<expression>
+<term>
+<identifier> size field used 2 </identifier>
+</term>
+</expression>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> erase subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> size field used 2 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> size field used 2 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> draw subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> moveUp subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> y field used 1 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> moveDown subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> y field used 1 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> moveLeft subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> x field used 0 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<subroutineDec>
+<keyword> method </keyword>
+<keyword> void </keyword>
+<identifier> moveRight subroutine defined None </identifier>
+<symbol> ( </symbol>
+<parameterList>
+</parameterList>
+<symbol> ) </symbol>
+<subroutineBody>
+<symbol> { </symbol>
+<statements>
+<ifStatement>
+<keyword> if </keyword>
+<symbol> ( </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> ) </symbol>
+<symbol> { </symbol>
+<statements>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<letStatement>
+<keyword> let </keyword>
+<identifier> x field used 0 </identifier>
+<symbol> = </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> ; </symbol>
+</letStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> setColor subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+<doStatement>
+<keyword> do </keyword>
+<identifier> Screen class used None </identifier>
+<symbol> . </symbol>
+<identifier> drawRectangle subroutine used None </identifier>
+<symbol> ( </symbol>
+<expressionList>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> x field used 0 </identifier>
+</term>
+</expression>
+<symbol> , </symbol>
+<expression>
+<term>
+<identifier> y field used 1 </identifier>
+</term>
+</expression>
+</expressionList>
+<symbol> ) </symbol>
+<symbol> ; </symbol>
+</doStatement>
+</statements>
+<symbol> } </symbol>
+</ifStatement>
+<returnStatement>
+<keyword> return </keyword>
+<symbol> ; </symbol>
+</returnStatement>
+</statements>
+<symbol> } </symbol>
+</subroutineBody>
+</subroutineDec>
+<symbol> } </symbol>
+</class>
